@@ -8,6 +8,7 @@ using Android.Util;
 using static Android.Renderscripts.ScriptGroup;
 using static Android.Renderscripts.Sampler;
 
+
 namespace Apteka
 {
     public class Product
@@ -60,16 +61,22 @@ namespace Apteka
 
         private async void LoadingDataProduct(object sender, EventArgs e)
         {
+            Toast.MakeText(Application.Context, "Началась загрузка", ToastLength.Short).Show();
             string json = await LoadData();
+            
+            if(!string.IsNullOrEmpty(json))
+            {
+                //Использование бибиотеки Newtonsoft.Json(надо скачивать)
+                //List<Product> products = JsonConvert.DeserializeObject<List<Product>>(json);
 
-            //Использование бибиотеки Newtonsoft.Json(надо скачивать)
-            //List<Product> products = JsonConvert.DeserializeObject<List<Product>>(json);
+                //Способ без библиотеки
+                List<string> parseJson = ParseJson(json);
+                List<Product> products = StringToProduct(parseJson);
 
-            //Способ без библиотеки
-            List<string> parseJson = ParseJson(json);
-            List<Product> products = StringToProduct(parseJson);
-
-            Product_FillingInData(products, FindViewById<TableLayout>(Resource.Id.tableLayout1));
+                Product_FillingInData(products, FindViewById<TableLayout>(Resource.Id.tableLayout1));
+            }
+            else
+                Toast.MakeText(Application.Context, "Данные не были получены", ToastLength.Short).Show();
         }
 
         private async Task<string> LoadData()
@@ -82,6 +89,8 @@ namespace Apteka
 
                 HttpClient client = new HttpClient(handler);
                 client.BaseAddress = new Uri("https://192.168.0.103:7060/");
+
+                client.Timeout = TimeSpan.FromSeconds(3);
 
                 HttpResponseMessage response = await client.GetAsync("Apteka");
 
@@ -163,6 +172,8 @@ namespace Apteka
 
                 tableLayout.AddView(row);
             }
+
+            Toast.MakeText(Application.Context, "Данные успешно загружены", ToastLength.Short).Show();
         }
 
         //Установка стиля для ячейки данных
