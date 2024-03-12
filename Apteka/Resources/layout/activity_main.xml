@@ -37,31 +37,40 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/button1" />
 
-                <TableLayout
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:minWidth="25px"
+                        android:minHeight="25px"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/linearLayout2">
+                    <TextView
+                        style="@style/HeaderTable"
+                        android:text="Название \nпрепарата"
+                        android:id="@+id/textView4"/>
+                    <TextView
+                        style="@style/HeaderTable"
+                        android:text="Склад"
+                        android:id="@+id/textView5" />
+                    <TextView
+                        style="@style/HeaderTable"
+                        android:text="Кол-во"
+                        android:id="@+id/textView6" />
+                </LinearLayout>
+
+                <ScrollView
                     android:minWidth="25px"
                     android:minHeight="25px"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/tableLayout1">
-                    <TableRow
-                        android:id="@+id/tableRow1"
+                    android:id="@+id/scrollView1">
+                    <TableLayout
+                        android:minWidth="25px"
+                        android:minHeight="25px"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            style="@style/HeaderTable"
-                            android:text="Название \nпрепарата"
-                            android:id="@+id/textView4"
-                            android:layout_width="match_parent"/>
-                        <TextView
-                            style="@style/HeaderTable"
-                            android:text="Склад"
-                            android:id="@+id/textView5" />
-                        <TextView
-                            style="@style/HeaderTable"
-                            android:text="Кол-во"
-                            android:id="@+id/textView6" />
-                    </TableRow>
-                </TableLayout>
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tableLayout1"/>
+                </ScrollView>
 
             </LinearLayout>
 
